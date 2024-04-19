@@ -4,7 +4,7 @@ import json from "@rollup/plugin-json";
 import commonjs from "@rollup/plugin-commonjs";
 import babel from "rollup-plugin-babel";
 
-const BANNER = fs.readFileSync("./src/banner.js").toString();
+const BANNER = fs.readFileSync("banner.js").toString();
 
 function getPlugins(babelConfig) {
   return [
@@ -17,7 +17,7 @@ function getPlugins(babelConfig) {
 
 export default [
   {
-    input: "src/index.js",
+    input: "index.js",
     output: {
       banner: BANNER,
       name: "main",
