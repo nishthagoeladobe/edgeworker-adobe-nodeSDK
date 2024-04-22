@@ -6,12 +6,13 @@ import RULES from "./rules";
 
 const STATUS = 200;
 const HEADERS = {
-  "Content-Type": ["application/json"]
+  "Content-Type": "application/json"
 };
 
+// Function to create and return the Target client
 const createTargetClient = () => {
   return new Promise(resolve => {
-    const result = TargetClient.create({
+    const targetClient = TargetClient.create({
       client: "targettesting",
       organizationId: "74F652E95F1B16FE0A495C92@AdobeOrg",
       decisioningMethod: "on-device",
@@ -21,31 +22,38 @@ const createTargetClient = () => {
       logger: logger,
       fetchApi: httpRequest,
       events: {
-        clientReady: () => resolve(result)
+        clientReady: () => resolve(targetClient)
       }
     });
   });
 };
 
-export async function responseProvider(request) {
-  const deliveryRequest = {      
-    execute: {
-      mboxes: [{
-        index: 0,
-        name: "mbox-params",
-        parameters: {
-          foo: "bar"
-        }
-      }]
-    }
-  };
+// Main EdgeWorker event handler
+export async function onClientRequest(request) {
+  try {
+    logger.log("Received request", JSON.stringify(request));
 
-  logger.log("Received request", JSON.stringify(request));
+    const deliveryRequest = {
+      execute: {
+        mboxes: [{
+          index: 0,
+          name: "mbox-params",
+          parameters: {
+            foo: "bar"
+          }
+        }]
+      }
+    };
 
-  const client = await createTargetClient();
-  const { response } = await client.getOffers({ request: deliveryRequest });
+    const targetClient = await createTargetClient();
+    const targetResponse = await targetClient.getOffers({ request: deliveryRequest });
 
-  logger.log("Sending response", JSON.stringify(response));
+    logger.log("Sending response", JSON.stringify(targetResponse));
 
-  return createResponse(STATUS, HEADERS, JSON.stringify(response));
+    // Sending the response directly back to the client
+    request.respondWith(createResponse(STATUS, { headers: HEADERS }, JSON.stringify(targetResponse)));
+  } catch (error) {
+    logger.error("Error processing the request: " + error.message);
+    request.respondWith(createResponse(500, { headers: {"Content-Type": "text/plain"}}, "Internal Server Error"));
+  }
 }
