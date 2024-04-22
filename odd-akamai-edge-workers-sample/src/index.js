@@ -13,11 +13,12 @@ const HEADERS = {
 const createTargetClient = () => {
   return new Promise(resolve => {
     const targetClient = TargetClient.create({
-      client: "targettesting",
-      organizationId: "74F652E95F1B16FE0A495C92@AdobeOrg",
+      client: "safewayinc",
+      organizationId: "A7BF3BC75245ADF20A490D4D@AdobeOrg",
+      propertyToken: "4f1a0288-f0d0-5f83-62d3-ae6a26b3bd6c",
       decisioningMethod: "on-device",
-      artifactPayload: RULES,
-      pollingInterval: 0, // "0" prevents polling, if artifactPayload is provided
+      pollingInterval: 300000,
+      artifactLocation: "https://assets.adobetarget.com/safewayinc/production/v1/rules.json",
       targetLocationHint: "34", // prevent cluster discovery
       logger: logger,
       fetchApi: httpRequest,
@@ -26,6 +27,13 @@ const createTargetClient = () => {
       }
     });
   });
+};
+
+const CONFIG = {
+
+  events: {
+    clientReady: startExpressApp
+  },
 };
 
 // Main EdgeWorker event handler
@@ -54,6 +62,6 @@ export async function onClientRequest(request) {
     request.respondWith(createResponse(STATUS, { headers: HEADERS }, JSON.stringify(targetResponse)));
   } catch (error) {
     logger.error("Error processing the request: " + error.message);
-    request.respondWith(createResponse(500, { headers: {"Content-Type": "text/plain"}}, "Internal Server Error"));
+    request.respondWith(createResponse(500, { headers: { "Content-Type": "text/plain" } }, "Internal Server Error"));
   }
 }

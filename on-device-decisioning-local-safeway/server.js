@@ -1,4 +1,4 @@
-/***************************************************************************************
+***************************************************************************************
  * (c) 2019 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You may obtain a copy
@@ -76,7 +76,8 @@ const CONFIG = {
   organizationId: "A7BF3BC75245ADF20A490D4D@AdobeOrg",
   propertyToken: "4f1a0288-f0d0-5f83-62d3-ae6a26b3bd6c",
   decisioningMethod: "on-device",
-  artifactPayload: require("./sampleRules"),
+  pollingInterval: 300000,
+  artifactLocation: "https://assets.adobetarget.com/safewayinc/production/v1/rules.json",
   events: {
     clientReady:startExpressApp
   },
