@@ -42,14 +42,24 @@ function sendSuccessResponse(res, targetResponse) {
 
   const offer = _.get(
     targetResponse,
-    "response.execute.mboxes[0].options[0].content"
+    "response.execute.mboxes[0].options[0].content", "response.visitorState"
   );
+
+  const visitorState = _.get(
+    targetResponse,
+    "visitorState"
+  );
+
+  const test = "test";
 
   sendHtml(res, {
     targetResponse: JSON.stringify(targetResponse, null, 4),
-    offer,
+    offer: JSON.stringify(offer),
+    visitorState:JSON.stringify(visitorState)
   });
 }
+
+
 
 function sendErrorResponse(res, error) {
   res.set(RESPONSE_HEADERS);
@@ -101,5 +111,19 @@ function startExpressApp() {
 
   app.listen(3000, function () {
     console.log("Listening on port 3000 and watching!");
+  });
+
+  process.on('SIGINT', () => {
+    console.log('SIGINT signal received: closing HTTP server');
+    server.close(() => {
+      console.log('HTTP server closed');
+    });
+  });
+  
+  process.on('SIGTERM', () => {
+    console.log('SIGTERM signal received: closing HTTP server');
+    server.close(() => {
+      console.log('HTTP server closed');
+    });
   });
 }

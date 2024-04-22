@@ -8,9 +8,12 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css" type="text/css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+
 </head>
 <body>
   <div class="container">
+    
     {{#if offer}}
       <div class="py-5">
         <h1>{{pageTitle}}</h1>
@@ -20,7 +23,11 @@
     {{/if}}
     <div class="py-3">
       <h2>Target Response</h2>
-      <pre id="result" {{#if error}}class="error"{{/if}}>{{targetResponse}}</pre>
+     <h4>test</h4> {{test}}
+      <h4>response</h4> {{targetResponse}}
+      <h4>offer</h4> {{offer}}
+       <h4>visitorstate</h4> {{visitorState}}
+      <pre id="result" {{#if error}}class="error"{{/if}}>{{visitorState}}</pre>
     </div>
   </div>
 </body>
