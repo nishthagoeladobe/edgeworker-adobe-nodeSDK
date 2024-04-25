@@ -6,7 +6,5 @@
 # NodeJS
 **/node_modules
 
-# Build
-**/dist
 
 dev-local.tfvars
