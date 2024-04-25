@@ -45,7 +45,7 @@ export async function onClientRequest(request) {
       execute: {
         mboxes: [{
           index: 0,
-          name: "mbox-params",
+          name: "server-side-mike-ab",
           parameters: {
             foo: "bar"
           }

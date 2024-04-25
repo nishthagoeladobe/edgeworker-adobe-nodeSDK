@@ -17,7 +17,7 @@ function getPlugins(babelConfig) {
 
 export default [
   {
-    input: "src/index.js",
+    input: "src/server.js",
     output: {
       banner: BANNER,
       name: "main",

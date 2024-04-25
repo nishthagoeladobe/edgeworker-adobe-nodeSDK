@@ -2,7 +2,7 @@
   "name": "script",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "NODE_ENV=production rollup -c rollup.config.js",
