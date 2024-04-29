@@ -18269,13 +18269,8 @@ const createTargetClient = () => {
       }
     });
   });
-};
-
-const CONFIG = {
-  events: {
-    clientReady: startExpressApp
-  }
 }; // Main EdgeWorker event handler
+
 
 async function onClientRequest(request) {
   try {

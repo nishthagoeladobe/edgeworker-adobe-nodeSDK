@@ -30,12 +30,7 @@ const createTargetClient = () => {
   });
 };
 
-const CONFIG = {
 
-  events: {
-    clientReady: startExpressApp
-  },
-};
 
 // Main EdgeWorker event handler
 export async function onClientRequest(request) {
