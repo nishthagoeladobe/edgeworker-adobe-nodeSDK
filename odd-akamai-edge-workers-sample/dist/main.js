@@ -18304,7 +18304,7 @@ async function onClientRequest(request) {
     </head>`);
       request.respondWith(createResponse(STATUS, {
         "Content-Type": "text/html"
-      }, modifiedBody));
+      }, JSON.stringify(modifiedBody)));
     } else {
       request.respondWith(createResponse(STATUS, {
         headers: HEADERS

@@ -66,7 +66,7 @@ export async function onClientRequest(request) {
       </script>
     </head>`);
 
-      request.respondWith(createResponse(STATUS, { "Content-Type": "text/html" }, modifiedBody));
+      request.respondWith(createResponse(STATUS, { "Content-Type": "text/html" }, JSON.stringify(modifiedBody)));
 
 
     }
